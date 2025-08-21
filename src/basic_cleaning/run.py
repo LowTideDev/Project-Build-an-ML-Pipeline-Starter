@@ -72,9 +72,9 @@ def go(args):
     if "last_review" in df.columns:
         df["last_review"] = pd.to_datetime(df["last_review"])
 
-    # ⚠️ NYC geo filter — enable LATER for the “successful failure” part
-    # idx_geo = df["longitude"].between(-74.25, -73.50) & df["latitude"].between(40.5, 41.2)
-    # df = df[idx_geo].copy()
+    # Drop rows outside NYC bounds
+    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
+    df = df[idx].copy()
 
     # Save cleaned file
     out_csv = "clean_sample.csv"
